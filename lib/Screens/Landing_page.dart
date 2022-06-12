@@ -7,7 +7,7 @@ import 'package:new_flut/Screens/Signup.dart';
 import 'package:new_flut/style/color/App_color.dart';
 import 'package:new_flut/widgets/Text_Button.dart';
 
-import '../controller/getcontroller.dart';
+import '../controller/cart_controller.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -22,8 +22,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
  final appcolor=Appcolor();
- final controller c = Get.put(controller());
- @override
+ 
  void initState() {
 
    super.initState();

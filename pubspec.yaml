@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter_screenutil: ^5.5.3+2
+  carousel_extended: ^1.2.0
   get: ^4.6.5
   google_fonts: ^3.0.1
   flutter:
