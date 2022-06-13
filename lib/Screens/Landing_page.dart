@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_flut/Screens/Login.dart';
 import 'package:new_flut/Screens/Signup.dart';
-import 'package:new_flut/style/color/App_color.dart';
-import 'package:new_flut/widgets/Text_Button.dart';
+import 'package:new_flut/style/color/app_color.dart';
+import 'package:new_flut/widgets/text_button.dart';
 
 import '../controller/cart_controller.dart';
 

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:new_flut/style/color/App_color.dart';
-
-import '../Screens/Login.dart';
-import '../utils/PageR.dart';
+import 'package:new_flut/style/color/app_color.dart';
+import 'package:new_flut/utils/page_r.dart';
 
 class  Textbutton extends StatelessWidget {
   final String text;

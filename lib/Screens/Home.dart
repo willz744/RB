@@ -3,11 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_flut/Screens/Login.dart';
-import 'package:new_flut/style/color/App_color.dart';
-import 'package:new_flut/widgets/Search_Bar.dart';
-import 'package:new_flut/widgets/HeaderP.dart';
+import 'package:new_flut/style/color/app_color.dart';
+import 'package:new_flut/views/product_disp.dart';
+import 'package:new_flut/widgets/search_bar.dart';
+import 'package:new_flut/widgets/header_p.dart''';
 
-import '../views/productsdisp.dart';
+
 
 
 class HomeP extends StatelessWidget {
@@ -61,7 +62,7 @@ class HomeP extends StatelessWidget {
                  
                  
                    SizedBox(height:20.h),
-                  headerP(color: appcolor.greyblack, text: "Categories", fontsize: 20.sp,),
+                  HeaderP(color: appcolor.greyblack, text: "Categories", fontsize: 20.sp,),
                   SizedBox(height:20.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -95,7 +96,7 @@ class HomeP extends StatelessWidget {
                        ),
                        child: Align(
                          alignment: Alignment.center,
-                         child: headerP(text: 'Woman', color: appcolor.verywhite, fontsize: 15.sp,)),
+                         child: HeaderP(text: 'Woman', color: appcolor.verywhite, fontsize: 15.sp,)),
                      )
                       ],
                     ),
@@ -129,7 +130,7 @@ class HomeP extends StatelessWidget {
                        ),
                        child: Align(
                          alignment: Alignment.center,
-                         child: headerP(text: 'Man', color: appcolor.verywhite, fontsize: 15.sp,)),
+                         child: HeaderP(text: 'Man', color: appcolor.verywhite, fontsize: 15.sp,)),
                      )
                       ],
                     ),
@@ -166,7 +167,7 @@ class HomeP extends StatelessWidget {
                        ),
                        child: Align(
                          alignment: Alignment.center,
-                         child: headerP(text: 'Kids', color: appcolor.verywhite, fontsize: 15.sp,)),
+                         child: HeaderP(text: 'Kids', color: appcolor.verywhite, fontsize: 15.sp,)),
                      ),
                     
                       ],
@@ -176,7 +177,7 @@ class HomeP extends StatelessWidget {
                     ],
                   ),
             SizedBox(height:20.h),
-             headerP(color: appcolor.greyblack, text: 'Products', fontsize: 17.sp),
+             HeaderP(color: appcolor.greyblack, text: 'Products', fontsize: 17.sp),
              Divider(color: Colors.black45,height: 3,),
              SizedBox(height:20.h),
                    ProductDisp(),

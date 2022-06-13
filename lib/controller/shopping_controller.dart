@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:new_flut/models/products.dart';
+import 'package:new_flut/controller/products.dart';
 
 class ShoppingController extends GetxController{
   List product = [].obs;

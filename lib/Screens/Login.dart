@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_flut/Screens/Home.dart';
-import 'package:new_flut/widgets/Pass_field.dart';
-import 'package:new_flut/widgets/Text_field.dart';
+import 'package:new_flut/widgets/pass_field.dart';
+import 'package:new_flut/widgets/text_field.dart';
 
-import '../widgets/Text_Button.dart';
-import 'Signup.dart';
+import '../widgets/text_button.dart';
+import 'signup.dart';
 
 
 class Login extends StatelessWidget {

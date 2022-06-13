@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:carousel_extended/carousel_extended.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_flut/controller/cart_controller.dart';
-import 'package:new_flut/style/color/App_color.dart';
-import 'package:new_flut/widgets/HeaderP.dart';
+import 'package:new_flut/style/color/app_color.dart';
+import 'package:new_flut/widgets/header_p.dart';
 
 
 import '../Screens/Home.dart';
@@ -75,7 +75,7 @@ class _ProductDetialviewState extends State<ProductDetialview> {
           children: [
             
                Padding(
-                 padding:  EdgeInsets.only(left: 20.w,top: 30.h,right: 20),
+                 padding:  EdgeInsets.only(left: 20.w, top: 30.h, right: 20.w),
                  child: Container(
                   height: 170.h, width: 320.w,
                 
@@ -93,10 +93,7 @@ class _ProductDetialviewState extends State<ProductDetialview> {
     images: [
       Image.network(productdetialData[0],fit: BoxFit.fill,),
      Image.network(productdetialData[0],fit: BoxFit.fill,),
-      Image.network(productdetialData[0],fit: BoxFit.fill,),
-      
-      
-    ],
+      Image.network(productdetialData[0],fit: BoxFit.fill,),],
   ),
               ),
                ),
@@ -104,13 +101,13 @@ class _ProductDetialviewState extends State<ProductDetialview> {
              SizedBox(height:10.h),
              Padding(
                padding:  EdgeInsets.only(left: 20.w),
-               child: headerP(color: appcolor.greyblack, text: productdetialData[1], fontsize: 20.sp),
+               child: HeaderP(color: appcolor.greyblack, text: productdetialData[1], fontsize: 20.sp),
              ),
              SizedBox(height:10.h),
 
               Padding(
                padding:  EdgeInsets.only(left: 20.w),
-               child: headerP(color: appcolor.blue, text: '\$${productdetialData[2].toString()}', fontsize: 16.sp),
+               child: HeaderP(color: appcolor.blue, text: '\$${productdetialData[2].toString()}', fontsize: 16.sp),
              ),
              SizedBox(height:10.h),
 
@@ -128,16 +125,16 @@ Row(
           decoration: BoxDecoration(
             color: appcolor.blue,
             borderRadius: BorderRadius.all(Radius.circular(4))),
-            child: Center(child: headerP(color: appcolor.verywhite, text: '4.5', fontsize: 16.sp)),
+            child: Center(child: HeaderP(color: appcolor.verywhite, text: '4.5', fontsize: 16.sp)),
         ),
       ),
  Padding(
    padding: EdgeInsets.only(left: 20.w),
-   child: headerP(color: appcolor.greyblack, text: 'Very Good', fontsize: 15.sp),
+   child: HeaderP(color: appcolor.greyblack, text: 'Very Good', fontsize: 15.sp),
  ),
  Padding(
    padding: EdgeInsets.only(left: 70.w),
-   child: headerP(color: appcolor.blue, text: '49 Review(s)', fontsize: 12.sp),
+   child: HeaderP(color: appcolor.blue, text: '49 Review(s)', fontsize: 12.sp),
  ),
 
   ],
@@ -150,7 +147,7 @@ Row(
 
           Padding(
            padding: EdgeInsets.only(left: 20.w),
-           child: headerP(color: appcolor.grey, text: 'Description', fontsize: 14.sp),
+           child: HeaderP(color: appcolor.grey, text: 'Description', fontsize: 14.sp),
                   ),
           
           Padding(
@@ -173,7 +170,7 @@ Row(
              ),
 
          Center(
-           child:  headerP(color: appcolor.black, text: 'Select Size', fontsize: 16.sp),
+           child:  HeaderP(color: appcolor.black, text: 'Select Size', fontsize: 16.sp),
          ),
 
               Padding(
@@ -194,7 +191,7 @@ Row(
           ),
           height:40.h,width: 43.w,
                
-         child: Center(child: headerP(color: ct1, text: 'S', fontsize: 15.sp)),
+         child: Center(child: HeaderP(color: ct1, text: 'S', fontsize: 15.sp)),
         ),
     ),
     InkWell(
@@ -206,7 +203,7 @@ Row(
           ),
           height:40.h,width: 43.w,
                
-          child: Center(child: headerP(color: ct2, text: 'M', fontsize: 15.sp)),
+          child: Center(child: HeaderP(color: ct2, text: 'M', fontsize: 15.sp)),
         ),
     ),
     InkWell(
@@ -218,7 +215,7 @@ Row(
           ),
           height:40.h,width: 43.w,
                
-          child: Center(child: headerP(color: ct3, text: 'L', fontsize: 15.sp)),
+          child: Center(child: HeaderP(color: ct3, text: 'L', fontsize: 15.sp)),
         ),
     ),
     InkWell(
@@ -230,7 +227,7 @@ Row(
           ),
           height:40.h,width: 43.w,
                
-        child: Center(child: headerP(color: ct4, text: 'XL', fontsize: 15.sp)),
+        child: Center(child: HeaderP(color: ct4, text: 'XL', fontsize: 15.sp)),
         ),
     ),
                   
@@ -245,7 +242,7 @@ children: [
   Expanded(
     child: InkWell(
                 onTap: (){
-                  cart_ctrl.Additem();
+                  cart_ctrl.addItem();
                   Get.snackbar('Notice', 'Added to cart successfully',
                   icon: Icon(Icons.shopping_bag_outlined, color: Colors.white),
                snackPosition: SnackPosition.BOTTOM,
@@ -265,7 +262,7 @@ children: [
             ),
             height:50.h,width: 100.w,
                    
-          child: Center(child: headerP(color: Colors.black, text: 'ADD TO CART', fontsize: 15.sp)),
+          child: Center(child: HeaderP(color: Colors.black, text: 'ADD TO CART', fontsize: 15.sp)),
           ),
       ),
   ),
@@ -278,7 +275,7 @@ children: [
                 borderRadius: BorderRadius.all(Radius.circular(1)) 
             ),
             height:50.h,width: 100.w,        
-          child: Center(child: headerP(color: Colors.white, text: 'BUY NOW', fontsize: 15.sp)),
+          child: Center(child: HeaderP(color: Colors.white, text: 'BUY NOW', fontsize: 15.sp)),
           ),
       ),
     ),

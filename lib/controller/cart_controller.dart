@@ -18,11 +18,11 @@ class CartController extends GetxController{
  
      CartController(this.item_name,this.item_price,this.item_image,this.item_qty);
 
-   Additem(){
+   addItem(){
    cart_items.value.add({"name":item_name,"price":item_price,"image":item_image,"qty":item_qty });
    total_item.value=cart_items.length;
   }
-  void total_amount(){
+  void totalAmount(){
     for(var i=0; i<cart_items.length; i++){
        total_sum = cart_items[i]['price'] * cart_items[i]['qty'];
   }
