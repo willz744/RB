@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:new_flut/controller/cart_controller.dart';
+import 'package:new_flut/style/color/app_color.dart';
+import 'package:new_flut/widgets/cart_item_disp.dart';
+import 'package:new_flut/widgets/header_p.dart';
+import 'package:new_flut/widgets/text_button.dart';
 
-import '../Screens/cart_item_disp.dart';
 
 class cartView extends StatefulWidget {
   const cartView({Key? key}) : super(key: key);
@@ -27,7 +30,9 @@ print(cart_ctrl.cart_items);
 
   @override
   Widget build(BuildContext context) {
+    var appcolor=Appcolor();
     return Scaffold(
+      backgroundColor: Colors.white,
        appBar: AppBar(
           backgroundColor: Colors.white70.withOpacity(0.975),
           automaticallyImplyLeading: false,
@@ -56,11 +61,24 @@ print(cart_ctrl.cart_items);
             ]),
           )),
           ) ,
-     body: ListView.builder(
-       itemCount: cart_ctrl.cart_items.length,
-       itemBuilder:  (BuildContext context,int index){
-       return CartDisp(index: index,);
-       }),
+               body:  Stack(
+                   children: [
+                      Padding(
+                        padding:  EdgeInsets.only(left: 10.w),
+                        child: HeaderP(color: appcolor.greyblack, text: 'Cart', fontsize: 22.sp),
+                      ),
+                     Obx(()=> ListView.builder(
+                    itemCount: cart_ctrl.cart_items.length,
+                    itemBuilder:  (BuildContext context,int index){
+                   return CartDisp(index: index);
+                     }),),
+                       Positioned(
+                        bottom: 13.h,left: 10.w,
+                        child: const Textbutton(text: 'Continue', pageR: 'address')),
+                   ],
+                 )
+               
+               
     );
   }
 }

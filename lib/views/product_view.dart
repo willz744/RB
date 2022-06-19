@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:carousel_extended/carousel_extended.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:new_flut/Screens/Home.dart';
 import 'package:new_flut/controller/cart_controller.dart';
 import 'package:new_flut/style/color/app_color.dart';
+import 'package:new_flut/widgets/cart_icon.dart';
 import 'package:new_flut/widgets/header_p.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 
-import '../Screens/Home.dart';
-import '../controller/size_control.dart';
-import '../widgets/cart_icon.dart';
 
 
 class ProductDetialview extends StatefulWidget {
@@ -32,13 +31,22 @@ class _ProductDetialviewState extends State<ProductDetialview> {
     Color ct2=Colors.grey;
  Color ct3=Colors.grey;
   Color ct4=Colors.grey;
+var productdetialData= Get.arguments;
 
-   
+var cart_ctrl;
+   @override
+void initState() {
+  super.initState();
+ 
+ 
+     cart_ctrl=Get.put(CartController(productdetialData[1], productdetialData[2], productdetialData[0], 1));
+ 
+}
   @override
   Widget build(BuildContext context) {
-     
-    var productdetialData= Get.arguments;
-    final cart_ctrl=Get.put(CartController(productdetialData[1], productdetialData[2], productdetialData[0], 1));
+     List img=[];
+     img=[productdetialData[0],productdetialData[0],productdetialData[0]];
+   
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -79,22 +87,23 @@ class _ProductDetialviewState extends State<ProductDetialview> {
                  child: Container(
                   height: 170.h, width: 320.w,
                 
-                 child: Carousel(
-                   autoplay: false,
-                   dotPosition: DotPosition.bottomLeft,
-                   dotBgColor: Colors.transparent,
-                   dotSize: 4.0,
-                   dotVerticalPadding: 5.0,
-                   dotSpacing: 15.0,
-                   indicatorBgPadding: 5.0,
-                   dotIncreasedColor: Colors.blue,
-                   dotIncreaseSize: 1.5,
-                   boxFit: BoxFit.cover,
-    images: [
-      Image.network(productdetialData[0],fit: BoxFit.fill,),
-     Image.network(productdetialData[0],fit: BoxFit.fill,),
-      Image.network(productdetialData[0],fit: BoxFit.fill,),],
-  ),
+                child:CarouselSlider(
+                       options: CarouselOptions(
+                          aspectRatio: 0.2,
+                           enlargeCenterPage: true,
+                           enableInfiniteScroll: true,
+                           viewportFraction: 1,
+                           initialPage: 0,
+                           autoPlay: false,
+                       ),
+                        items: img
+                        .map((item) => Container(
+                         child: Center(
+                           child:
+                           Image.network(item, fit: BoxFit.fill,width: 320.w,)),
+                       ))
+                     .toList(),
+                        ) 
               ),
                ),
 

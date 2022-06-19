@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:new_flut/Screens/Home.dart';
 import 'package:new_flut/Screens/Login.dart';
+import 'package:new_flut/screens/address_page.dart';
+import 'package:new_flut/screens/pay_confirm.dart';
 
 
 class PageR{
@@ -12,10 +12,16 @@ class PageR{
 void route(){
   switch(pager){
     case 'login':
-      Get.to(Login());
+      Get.to(const Login());
       break;
     case 'home':
-      Get.to(HomeP());
+      Get.to(const HomeP());
+      break;
+    case 'address':
+      Get.to(const AddressPage());
+      break;
+    case 'pay':
+      Get.to(const PayConfirm());
       break;
   }
 }

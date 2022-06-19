@@ -16,6 +16,7 @@ class HeaderP extends StatelessWidget {
                 style: GoogleFonts.lato(
                     textStyle: TextStyle(
                         color: color,
+                        
                         fontSize: fontsize,
                         fontWeight: FontWeight.w600
                     )
