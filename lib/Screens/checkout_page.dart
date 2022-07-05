@@ -37,7 +37,7 @@ void initState() {
           backgroundColor: Colors.white70.withOpacity(0.975),
           automaticallyImplyLeading: false,
           elevation: 0,
-          toolbarHeight: 48.h,
+          toolbarHeight: 50.h,
           flexibleSpace: SafeArea(child: Container(
             decoration: BoxDecoration(color: Colors.white70.withOpacity(0.975),
             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10))

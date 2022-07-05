@@ -12,10 +12,10 @@ class PageR{
 void route(){
   switch(pager){
     case 'login':
-      Get.to(const Login());
+      Get.to(const Login(),duration:const Duration(seconds: 1),transition: Transition.circularReveal);
       break;
     case 'home':
-      Get.to(const HomeP());
+      Get.to(const HomeP(),duration:const Duration(seconds: 1),transition: Transition.zoom);
       break;
     case 'address':
       Get.to(const AddressPage());

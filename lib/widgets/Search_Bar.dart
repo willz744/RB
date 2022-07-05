@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:new_flut/screens/search_bar.dart';
 import 'package:new_flut/style/color/app_color.dart';
 
 class Searchbar extends StatelessWidget {
@@ -29,7 +30,7 @@ class Searchbar extends StatelessWidget {
 
 
         child: TextField(
-
+          onTap: (() => Get.to(SearchBarPage())),
           cursorColor: appcolor.greyblack,
           decoration: InputDecoration(
               prefixIcon: Icon(Icons.search,color: Colors.black54,),

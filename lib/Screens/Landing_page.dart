@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding:  EdgeInsets.only(top: 50.h,left: 85.5),
+              padding:  EdgeInsets.only(top: 50.h,left: 85.5.w),
               child: Text(
                 'Welcome to RBuy',
                 style: GoogleFonts.varelaRound(

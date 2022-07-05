@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_flut/Screens/Login.dart';
+import 'package:new_flut/screens/profile_page.dart';
+import 'package:new_flut/screens/search_bar.dart';
 import 'package:new_flut/style/color/app_color.dart';
 import 'package:new_flut/views/product_disp.dart';
 import 'package:new_flut/widgets/search_bar.dart';
@@ -16,6 +19,7 @@ class HomeP extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final String Image_woman='https://media.istockphoto.com/photos/young-beautiful-woman-picture-id1294339577?b=1&k=20&m=1294339577&s=170667a&w=0&h=_5-SM0Dmhb1fhRdz64lOUJMy8oic51GB_2_IPlhCCnU=';
     final String Image_man='https://media.istockphoto.com/photos/smiling-indian-man-looking-at-camera-picture-id1270067126?k=20&m=1270067126&s=612x612&w=0&h=ZMo10u07vCX6EWJbVp27c7jnnXM2z-VXLd-4maGePqc=';
     final String Image_kid='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPsto0hEV_Zr-fKwxWODIAqe5YZvj82TS_Qg&usqp=CAU';
@@ -34,15 +38,19 @@ class HomeP extends StatelessWidget {
             child: Column(children: [
              Row(
                     children: [
-                      IconButton(onPressed: (){},
-                          icon: Icon(Icons.menu_open_rounded,size: 35.sp,color: Colors.black54,)),
+                      Builder(
+                        builder: (context) {
+                          return IconButton(onPressed: () => Scaffold.of(context).openDrawer(),
+                              icon: Icon(CupertinoIcons.circle_grid_3x3_fill,size: 25.sp,color: Colors.black54,));
+                        }
+                      ),
                       Padding(
                         padding:  EdgeInsets.only(left: 190.w),
                         child: IconButton(onPressed: (){},
-                            icon: Icon(Icons.notifications_none_sharp)),
+                            icon: Icon(Icons.notifications_none_sharp,color: Colors.black54)),
                       ),
-                      IconButton(onPressed: (){},
-                          icon: Icon(Icons.filter_alt_outlined,color: Colors.black54,)),
+                      IconButton(onPressed: ()=>Get.to((const SearchBarPage())),
+                          icon: const Icon(CupertinoIcons.search,color: Colors.black54,)),
                         
                     ],
                   ),
@@ -51,6 +59,7 @@ class HomeP extends StatelessWidget {
             ]),
           )),
           ) ,
+          drawer: drawer(context),
         backgroundColor: Colors.white70.withOpacity(0.975),
           body:Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -69,7 +78,7 @@ class HomeP extends StatelessWidget {
                     children: [
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                      borderRadius: const BorderRadius.all(Radius.circular(7)),
                     boxShadow: [BoxShadow(
                   color: Colors.grey.withOpacity(0.5),
                   offset: const Offset(3,6),
@@ -186,6 +195,102 @@ class HomeP extends StatelessWidget {
             ),
           )
 
+      ),
+    );
+  }
+  
+  drawer(BuildContext context) {
+    final appcolor=Appcolor();
+    return Drawer(
+      child: ListView(
+        children: [
+          Container(
+            height: 150.h, width: double.infinity,
+            
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(bottomRight: Radius.circular(50),topRight:Radius.circular(50) ),
+             color: appcolor.dark_grey,),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  height: 100.h,width: 100.w,
+                  decoration:  const BoxDecoration(
+                    shape: BoxShape.circle,
+                   image:  DecorationImage(image: AssetImage('assets/images/avatar.png'),fit: BoxFit.fill)
+                  ),
+                ),
+               
+                HeaderP(color: appcolor.tint_grey, text: 'magic.william@gmail.com', fontsize: 12.sp),
+                SizedBox(height: 5.h,),
+                HeaderP(color: appcolor.tint_grey, text: '0816682657', fontsize: 12.sp),
+              ],
+            ),
+          ),
+           SizedBox(height: 12.h,),
+          InkWell(
+            onTap: ()=>Get.to(()=>ProfilePage()),
+            child: Padding(
+              padding:  EdgeInsets.only(left: 10.w),
+              child: Row(
+             //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                 Image.asset('assets/images/profile.png',height:40.h,width: 40.w,),
+                Padding(
+                  padding: EdgeInsets.only(left: 15.w),
+                  child: HeaderP(color: appcolor.grey, text: 'My Profile', fontsize: 14.sp),
+                )
+              ]),
+            ),
+          ),
+          SizedBox(height: 10.h,),
+          InkWell(
+            onTap: (){},
+            child: Padding(
+              padding:  EdgeInsets.only(left: 10.w),
+              child: Row(
+             //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Image.asset('assets/images/cart.png',height:40.h,width: 40.w,),
+                Padding(
+                  padding: EdgeInsets.only(left: 15.w),
+                  child: HeaderP(color: appcolor.grey, text: 'Cart', fontsize: 14.sp),
+                )
+              ]),
+            ),
+          ),
+          SizedBox(height: 10.h,),
+          InkWell(
+            onTap: (){},
+            child: Padding(
+              padding:  EdgeInsets.only(left: 10.w),
+              child: Row(
+                children: [
+                  Image.asset('assets/images/order.png',height:40.h,width: 40.w,),
+                Padding(
+                  padding: EdgeInsets.only(left: 15.w),
+                  child: HeaderP(color: appcolor.grey, text: 'My Orders', fontsize: 14.sp),
+                )
+              ]),
+            ),
+          ),
+          Divider(),
+          SizedBox(height: 10.h,),
+          InkWell(
+            onTap: (){},
+            child: Padding(
+              padding:  EdgeInsets.only(left: 10.w),
+              child: Row(
+                children: [
+                  Icon(Icons.settings,color: appcolor.blue,size: 30.sp,),
+                Padding(
+                  padding: EdgeInsets.only(left: 15.w),
+                  child: HeaderP(color: appcolor.grey, text: 'Settings', fontsize: 14.sp),
+                )
+              ]),
+            ),
+          ),
+        ],
       ),
     );
   }

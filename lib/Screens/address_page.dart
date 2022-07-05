@@ -31,7 +31,7 @@ class _AddressPageState extends State<AddressPage> {
           backgroundColor: Colors.white70.withOpacity(0.975),
           automaticallyImplyLeading: false,
           elevation: 0,
-          toolbarHeight: 48.h,
+          toolbarHeight: 50.h,
           flexibleSpace: SafeArea(child: Container(
             decoration: BoxDecoration(color: Colors.white70.withOpacity(0.975),
             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10))
@@ -135,32 +135,35 @@ class _AddressPageState extends State<AddressPage> {
 
     Padding(
         padding: EdgeInsets.only(left: 20.w,right: 20.w,top: 20.h),
-        child: Container(
-          height: 44.0,
-          decoration: const BoxDecoration(gradient: LinearGradient(colors: [Colors.blue, Colors.lightBlueAccent]),
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              
-          ),
-          child: ElevatedButton(
-            onPressed: () {
-             Get.to(PaymentPage());
-             cartCtrl.totalAmount();
-            },
-            style: ElevatedButton.styleFrom(primary: Colors.transparent, shadowColor: Colors.transparent),
-            child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 70.w),
-              child: Text('Continue To Payment',
-                style: GoogleFonts.lato(
-                    textStyle: TextStyle(
-                        color: appcolor.verywhite,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w400
-                    )
-                ),
-
-
-              ),
+        child: Expanded(
+          child: Container(
+            height: 44.0,
+            decoration: const BoxDecoration(gradient: LinearGradient(colors: [Colors.blue, Colors.lightBlueAccent]),
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                
             ),
+            child:  ElevatedButton(
+                onPressed: () {
+                 Get.to(PaymentPage());
+                 cartCtrl.totalAmount();
+                },
+                style: ElevatedButton.styleFrom(primary: Colors.transparent, shadowColor: Colors.transparent),
+                child: Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 70.w),
+                  child: Text('Continue To Payment',
+                    style: GoogleFonts.lato(
+                        textStyle: TextStyle(
+                            color: appcolor.verywhite,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w400
+                        )
+                    ),
+            
+            
+                  ),
+                ),
+              ),
+            
           ),
         )
     ),

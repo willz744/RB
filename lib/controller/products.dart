@@ -28,7 +28,7 @@ final appcolor=Appcolor();
             color: Colors.white.withOpacity(0.9),
             borderRadius: BorderRadius.all(Radius.circular(8))),
          // margin: EdgeInsets.all(8.0),
-          height: 100,width: 40,
+         // height: 100,width: 40,
           
           child: Padding(
             padding:  EdgeInsets.only(left: 0.w),
@@ -40,9 +40,12 @@ final appcolor=Appcolor();
                   Get.to(()=>ProductDetialview(),arguments: [productImage,productName,price,productDescription]);
                 },
                 child: Container( height: 170,width: 170.w , decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8)),
-                  image: DecorationImage(image: NetworkImage(productImage),
-                fit:BoxFit.fill ) ), ),
+                  borderRadius:const BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8)),
+                  ),
+                  child: FadeInImage.assetNetwork(placeholder: 'assets/images/onload.png', image: productImage ,
+                  
+                  fit: BoxFit.fill,),
+                   ),
               ),
               SizedBox(height:7.h),
               Padding(

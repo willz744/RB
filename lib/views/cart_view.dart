@@ -37,7 +37,7 @@ print(cart_ctrl.cart_items);
           backgroundColor: Colors.white70.withOpacity(0.975),
           automaticallyImplyLeading: false,
           elevation: 0,
-          toolbarHeight: 48.h,
+          toolbarHeight: 50.h,
           flexibleSpace: SafeArea(child: Container(
             decoration: BoxDecoration(color: Colors.white70.withOpacity(0.975),
             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10))
@@ -72,9 +72,11 @@ print(cart_ctrl.cart_items);
                     itemBuilder:  (BuildContext context,int index){
                    return CartDisp(index: index);
                      }),),
-                       Positioned(
-                        bottom: 13.h,left: 10.w,
-                        child: const Textbutton(text: 'Continue', pageR: 'address')),
+                       Expanded(
+                         child: Positioned(
+                          bottom: 13.h,left: 10.w,right:10.w,
+                          child: const Textbutton(text: 'Continue', pageR: 'address')),
+                       ),
                    ],
                  )
                
