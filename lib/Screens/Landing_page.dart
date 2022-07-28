@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:new_flut/Screens/Login.dart';
-import 'package:new_flut/Screens/Signup.dart';
-import 'package:new_flut/controller/shopping_controller.dart';
+import 'package:new_flut/screens/signup.dart';
 import 'package:new_flut/style/color/app_color.dart';
 import 'package:new_flut/widgets/text_button.dart';
 
@@ -75,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
            Textbutton(text: "Login", pageR: 'login',),
             SizedBox(height: 12.h),
-            TextButton(onPressed: ()=> Get.to(check()),
+            TextButton(onPressed: ()=> Get.to(Signup()),
               child: Padding(
                 padding:  EdgeInsets.symmetric(horizontal: 120.w),
                 child: Text('Signup',

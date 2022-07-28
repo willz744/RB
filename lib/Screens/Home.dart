@@ -404,7 +404,7 @@ return  Obx(()=>Stack(
                         Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(
-                          height: 40.h,
+                          height: 41.h,
                           child: CircularProgressIndicator(),
                         )
                         )
