@@ -1,22 +1,27 @@
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:new_flut/Screens/Login.dart';
-import 'package:new_flut/controller/cart_controller.dart';
+import 'package:get/get.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:new_flut/controller/product_controller.dart';
 import 'package:new_flut/controller/products.dart';
 import 'package:new_flut/controller/shopping_controller.dart';
+import 'package:new_flut/models/products.dart';
+import 'package:new_flut/style/color/app_color.dart';
+import 'package:new_flut/widgets/header_p.dart';
 
 
 class ProductDisp extends StatefulWidget {
-  const ProductDisp({Key? key}) : super(key: key);
+  String ?id;
+  String ?access;
+   ProductDisp({Key? key,this.id,this.access}) : super(key: key);
 
   @override
   State<ProductDisp> createState() => _ProductDispState();
 }
 
 class _ProductDispState extends State<ProductDisp> {
-  
+ ScrollController _scrollCtrl=ScrollController();
   final productlist=[
     {
    "name" : "women kids Shirt",
@@ -61,34 +66,59 @@ class _ProductDispState extends State<ProductDisp> {
    "price": 70
     },
   ];
-final shopcontrol=Get.put(ShoppingController());
+ final pControl=Get.put(Pcontroller());
 
+final appcolor=Appcolor();
+
+bool isloading=true;
+int page=1;
+
+ @override void initState() {
+  //pControl.getProducts(widget.id.toString(), widget.access.toString());
+
+  _scrollCtrl.addListener(() {
+  
+    if(_scrollCtrl.position.pixels==_scrollCtrl.position.maxScrollExtent){
+      //isloading?CircularProgressIndicator():Container();
+      page++;
+     // pControl.getMoreProducts(widget.id.toString(), widget.access.toString(), page).then((value) => isloading=false);
+print("end");
+//print("${pControl.product.length}");
+    }
+      print(_scrollCtrl.position.pixels);
+  });
+    super.initState();
+  }
 
   @override
+  void dispose() {
+    super.dispose();
+    _scrollCtrl.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      
-      child: 
-      GridView.builder(
+    return Scaffold(
+      //controller: _scrollCtrl ,
+      body:  ListView.builder(
+              controller: _scrollCtrl,
              scrollDirection: Axis.vertical,
                shrinkWrap: true,
-                    itemCount: productlist.length,
-                    physics: ScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
+                    itemCount: 15,
+                    physics:const  ScrollPhysics(),
+                /*    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
                     crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
-                    // childAspectRatio: 2,
-                      mainAxisExtent: 230,
-                    ),
+                     childAspectRatio: 3/2,
+                      mainAxisExtent: 245,
+                    ), */
                     itemBuilder: (BuildContext context, int index) {
-                      return ProductData(price: double.parse(productlist[index]['price'].toString()) , 
-                      productDescription: productlist[index]['description'], 
-                      productImage: productlist[index]['image'], 
-                      productName: productlist[index]['name'],);
+                      return ListTile(title: Text("milk"),);
+                     // return  ProductData( pDetails: Datum.fromMap(pControl.product[index]),);
                     },
-                  ),
-    );
+                  ));
     
     
+    
+ 
   }
 }

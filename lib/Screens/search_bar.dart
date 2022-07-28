@@ -2,43 +2,84 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
-class SearchBarPage extends StatelessWidget {
-  const SearchBarPage({Key? key}) : super(key: key);
+class CustomSearchDelegate extends SearchDelegate {
+// Demo list to show querying
+List<String> searchTerms = [
+	"Apple",
+	"Banana",
+	"Mango",
+	"Pear",
+	"Watermelons",
+	"Blueberries",
+	"Pineapples",
+	"Strawberries"
+];
+	@override
+  // TODO: implement searchFieldLabel
+  String? get searchFieldLabel => 'search for products';
+// first overwrite to
+// clear the search text
+@override
+List<Widget>? buildActions(BuildContext context) {
+	return [
+	IconButton(
+		onPressed: () {
+		query = '';
+		},
+		icon: Icon(Icons.clear),
+	),
+	];
+}
 
-  @override
-  Widget build(BuildContext context) {
+// second overwrite to pop out of search menu
+@override
+Widget? buildLeading(BuildContext context) {
+	return IconButton(
+	onPressed: () {
+		close(context, null);
+	},
+	icon: Icon(Icons.arrow_back),
+	);
+}
 
-  FloatingSearchBarController controller = FloatingSearchBarController();
+// third overwrite to show query result
+@override
+Widget buildResults(BuildContext context) {
+	List<String> matchQuery = [];
+	for (var fruit in searchTerms) {
+	if (fruit.toLowerCase().contains(query.toLowerCase())) {
+		matchQuery.add(fruit);
+	}
+	}
+	return ListView.builder(
+	itemCount: matchQuery.length,
+	itemBuilder: (context, index) {
+		var result = matchQuery[index];
+		return ListTile(
+		title: Text(result),
+		);
+	},
+	);
+}
 
-    return Scaffold(
-      body: FloatingSearchBar(
-        hint: 'Search...',
-      scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-      transitionDuration: const Duration(milliseconds: 800),
-      transitionCurve: Curves.easeInOut,
-      physics: const BouncingScrollPhysics(),
-      //  axisAlignment: isPortrait ? 0.0 : -1.0,
-      openAxisAlignment: 0.0,
-      //width: isPortrait ? 600 : 500,
-      debounceDelay: const Duration(milliseconds: 500),
-      controller:controller , 
-      transition: CircularFloatingSearchBarTransition(),
-      actions: [
-        FloatingSearchBarAction(
-          showIfOpened: false,
-          child: CircularButton(
-            icon: const Icon(Icons.place),
-            onPressed: () {},
-          ),
-        ),
-        FloatingSearchBarAction.searchToClear(
-          showIfClosed: false,
-        ),
-      ],
-      builder: (BuildContext context, Animation<double> transition) { 
-        return Container();
-       },
-      ),
-    );
-  }
+// last overwrite to show the
+// querying process at the runtime
+@override
+Widget buildSuggestions(BuildContext context) {
+	List<String> matchQuery = [];
+	for (var fruit in searchTerms) {
+	if (fruit.toLowerCase().contains(query.toLowerCase())) {
+		matchQuery.add(fruit);
+	}
+	}
+	return ListView.builder(
+	itemCount: matchQuery.length,
+	itemBuilder: (context, index) {
+		var result = matchQuery[index];
+		return ListTile(
+		title: Text(result),
+		);
+	},
+	);
+}
 }

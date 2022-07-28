@@ -8,11 +8,13 @@ import 'package:new_flut/utils/page_r.dart';
 class  Textbutton extends StatelessWidget {
   final String text;
   final String pageR;
-  const Textbutton({Key? key, required this.text, required this.pageR}) : super(key: key);
+   String ?account="";
+   String ?password;
+   Textbutton({Key? key, required this.text, required this.pageR,this.account,this.password}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final router=PageR(pager: pageR);
+    final router=PageR(pager: pageR,account: account,password: password);
     final appcolor=Appcolor();
     return  Padding(
         padding: EdgeInsets.only(left: 35.w,right: 35.w),

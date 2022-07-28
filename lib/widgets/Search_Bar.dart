@@ -10,6 +10,7 @@ class Searchbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final appcolor =Appcolor();
     return Padding(
       padding:  EdgeInsets.only(left: 10.w),
@@ -30,7 +31,11 @@ class Searchbar extends StatelessWidget {
 
 
         child: TextField(
-          onTap: (() => Get.to(SearchBarPage())),
+          onTap: (() => showSearch(
+          context: context,
+          delegate: CustomSearchDelegate(),
+          
+        )),
           cursorColor: appcolor.greyblack,
           decoration: InputDecoration(
               prefixIcon: Icon(Icons.search,color: Colors.black54,),
@@ -46,3 +51,5 @@ class Searchbar extends StatelessWidget {
     );
   }
 }
+
+

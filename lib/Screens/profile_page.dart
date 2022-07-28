@@ -3,12 +3,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:new_flut/api_service/profile_service.dart';
+import 'package:new_flut/models/profile.dart';
 import 'package:new_flut/style/color/app_color.dart';
 import 'package:new_flut/widgets/header_p.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  Data profiledata=Data();
+  List<String> userId=[];
+Future<SharedPreferences> _prefs =SharedPreferences.getInstance();
+  Future showData()async{
+    SharedPreferences prefs=await _prefs;
+  setState(() {
+    userId=prefs.getStringList('id')!;
+  });
+    
+ // print('it is$userId');
+  }
+@override void initState() {
+    showData().then((value)async{
+    var resp = await ProfileService().getProfile({
+      'user_id': userId[0],
+      'access_token':userId[1]
+    });
+    setState(() {
+       profiledata= Data.fromMap(resp["data"]) ;
+       print(profiledata.name);
+    });
+   
+  });
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     final appcolor=Appcolor();
@@ -66,7 +100,7 @@ class ProfilePage extends StatelessWidget {
                   SizedBox(height: 8.h,),
                   Divider(height: 2.h,),
                    SizedBox(height: 8.h,),
-                  rowData('Name', 13.sp,Text('Agbo william',style: TextStyle(color: appcolor.grey))),
+                  rowData('Name', 13.sp,Text(profiledata.name.toString(),style: TextStyle(color: appcolor.grey))),
                    SizedBox(height: 8.h,),
                     Divider(height: 2.h,),
                      SizedBox(height: 8.h,),
@@ -97,7 +131,7 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
-  
+
   Widget rowData(String text,double fontsize, Widget wig) {
     final appcolor=Appcolor();
     return Padding(

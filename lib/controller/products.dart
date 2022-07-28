@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_flut/Screens/Login.dart';
+import 'package:new_flut/models/products.dart';
 import 'package:new_flut/style/color/app_color.dart';
 import 'package:new_flut/views/product_view.dart';
 import 'package:new_flut/widgets/header_p.dart';
@@ -10,11 +11,11 @@ import 'package:new_flut/widgets/text_field.dart';
 
 class ProductData extends StatelessWidget {
    
-   final  productName;
-   final  productImage;
-   final  productDescription;
-   final double price;
-  const ProductData({Key? key, required this.productName, required this.productImage, required this.productDescription, required this.price}) : super(key: key);
+  // final  productName;
+  // final  productImage;
+   Datum pDetails=Datum();
+  // final double price;
+   ProductData({Key? key,required this.pDetails }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +38,12 @@ final appcolor=Appcolor();
               children: [
               InkWell(
                 onTap: (){
-                  Get.to(()=>ProductDetialview(),arguments: [productImage,productName,price,productDescription]);
+                //  Get.to(()=>ProductDetialview(),arguments: [productImage,productName,price,productDescription]);
                 },
                 child: Container( height: 170,width: 170.w , decoration: BoxDecoration(
                   borderRadius:const BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8)),
                   ),
-                  child: FadeInImage.assetNetwork(placeholder: 'assets/images/onload.png', image: productImage ,
+                  child: FadeInImage.assetNetwork(placeholder: 'assets/images/onload.png', image: pDetails.picture.toString(),
                   
                   fit: BoxFit.fill,),
                    ),
@@ -50,7 +51,7 @@ final appcolor=Appcolor();
               SizedBox(height:7.h),
               Padding(
                 padding:  EdgeInsets.only(left: 8.w),
-                child: HeaderP(color: appcolor.greyblack, text: '\$${price.toString()}', fontsize: 14.sp),
+                child: HeaderP(color: appcolor.greyblack, text: '${pDetails.price.toString()}', fontsize: 14.sp),
               ),
               SizedBox(height:7.h),
            /*       Padding(
@@ -63,7 +64,7 @@ final appcolor=Appcolor();
           Padding(
             padding: EdgeInsets.only(left: 8.w,),
             child: Text(
-        productName,
+        pDetails.itemName.toString(),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style:  GoogleFonts.lato(

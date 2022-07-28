@@ -2,13 +2,17 @@
 import 'package:get/get.dart';
 import 'package:new_flut/Screens/Home.dart';
 import 'package:new_flut/Screens/Login.dart';
+import 'package:new_flut/api_service/api_service.dart';
+import 'package:new_flut/api_service/otp_service.dart';
 import 'package:new_flut/screens/address_page.dart';
 import 'package:new_flut/screens/pay_confirm.dart';
 
 
 class PageR{
    String pager;
-      PageR({required this.pager});
+   String ?account="";
+   String ?password;
+      PageR({required this.pager,this.account,this.password});
 void route(){
   switch(pager){
     case 'login':
@@ -20,11 +24,15 @@ void route(){
     case 'address':
       Get.to(const AddressPage());
       break;
+    
     case 'pay':
       Get.to(const PayConfirm());
       break;
+    
   }
 }
+
+ 
 
 
 

@@ -3,20 +3,89 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:new_flut/Screens/Login.dart';
+import 'package:new_flut/api_service/profile_service.dart';
+import 'package:new_flut/controller/product_controller.dart';
+import 'package:new_flut/controller/products.dart';
+import 'package:new_flut/models/products.dart';
+import 'package:new_flut/models/profile.dart';
 import 'package:new_flut/screens/profile_page.dart';
 import 'package:new_flut/screens/search_bar.dart';
 import 'package:new_flut/style/color/app_color.dart';
 import 'package:new_flut/views/product_disp.dart';
 import 'package:new_flut/widgets/search_bar.dart';
 import 'package:new_flut/widgets/header_p.dart''';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
 
-class HomeP extends StatelessWidget {
+class HomeP extends StatefulWidget {
   const HomeP({Key? key}) : super(key: key);
 
+  @override
+  State<HomeP> createState() => _HomePState();
+}
+
+class _HomePState extends State<HomeP> {
+bool internetConn=true;
+ScrollController _scrollCtrl=ScrollController();
+List<String> userId=[];
+Data profiledata=Data();
+
+final pControl=Get.put(Pcontroller());
+int page=1;
+Future<SharedPreferences> _prefs =SharedPreferences.getInstance();
+  Future showData()async{
+    SharedPreferences prefs=await _prefs;
+  setState(() {
+    userId=prefs.getStringList('id')!;
+  });
+    
+ // print('it is$userId');
+  }
+  Future checkInternet() async{
+   bool result= await InternetConnectionChecker().hasConnection;
+   setState(() {
+     internetConn=result;
+   });
+    print(internetConn);
+  
+  }
+
+@override
+void initState() {
+  super.initState();
+  checkInternet();
+  showData().then((value)async{
+    var resp = await ProfileService().getProfile({
+      'user_id': userId[0],
+      'access_token':userId[1]
+    });
+ pControl.getProducts(userId[0], userId[1]);
+    setState(() {
+       profiledata= Data.fromMap(resp["data"]) ;
+       print(profiledata.name);
+    });
+  
+  });
+
+  _scrollCtrl.addListener(() {
+  
+    if(_scrollCtrl.position.pixels==_scrollCtrl.position.maxScrollExtent){
+     pControl.isloading.value=true;
+      
+      page++;
+      pControl.getMoreProducts(userId[0], userId[1], page).then((value) => pControl.isloading.value=false);
+print("end");
+//print("${pControl.product.length}");
+    }
+      print(_scrollCtrl.position.pixels);
+  });
+  
+  
+}
   @override
   Widget build(BuildContext context) {
     
@@ -24,13 +93,17 @@ class HomeP extends StatelessWidget {
     final String Image_man='https://media.istockphoto.com/photos/smiling-indian-man-looking-at-camera-picture-id1270067126?k=20&m=1270067126&s=612x612&w=0&h=ZMo10u07vCX6EWJbVp27c7jnnXM2z-VXLd-4maGePqc=';
     final String Image_kid='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPsto0hEV_Zr-fKwxWODIAqe5YZvj82TS_Qg&usqp=CAU';
     final appcolor=Appcolor();
+     String interMessage='No internet connection, Please connect your phone to internet and restart the app';
+
+
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white70.withOpacity(0.975),
           automaticallyImplyLeading: false,
           elevation: 0,
-          toolbarHeight: 100.h,
+          toolbarHeight: 253.h,
           flexibleSpace: SafeArea(child: Container(
             decoration: BoxDecoration(color: Colors.white70.withOpacity(0.975),
             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10))
@@ -49,27 +122,13 @@ class HomeP extends StatelessWidget {
                         child: IconButton(onPressed: (){},
                             icon: Icon(Icons.notifications_none_sharp,color: Colors.black54)),
                       ),
-                      IconButton(onPressed: ()=>Get.to((const SearchBarPage())),
+                      IconButton(onPressed: ()=>showSearch(context: context, delegate: CustomSearchDelegate()),
                           icon: const Icon(CupertinoIcons.search,color: Colors.black54,)),
                         
                     ],
                   ),
                    SizedBox(height:3.h),
                    Searchbar(),
-            ]),
-          )),
-          ) ,
-          drawer: drawer(context),
-        backgroundColor: Colors.white70.withOpacity(0.975),
-          body:Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            child: SingleChildScrollView(
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                 
-                 
                    SizedBox(height:20.h),
                   HeaderP(color: appcolor.greyblack, text: "Categories", fontsize: 20.sp,),
                   SizedBox(height:20.h),
@@ -85,10 +144,7 @@ class HomeP extends StatelessWidget {
                   blurRadius: 5.0,
                   spreadRadius: 1
               )],
-                      image: DecorationImage(image: NetworkImage(Image_woman),
-                     
-                      fit: BoxFit.cover
-                      ),
+                      image: DecorationImage(image: NetworkImage(Image_woman),        fit: BoxFit.cover   ),
                       
                     
                     ),
@@ -103,10 +159,10 @@ class HomeP extends StatelessWidget {
                        decoration: BoxDecoration(borderRadius:BorderRadius.all(Radius.circular(7) ),
                         color: Colors.lightBlueAccent.withOpacity(0.4),
                        ),
-                       child: Align(
+                      child: Align(
                          alignment: Alignment.center,
-                         child: HeaderP(text: 'Woman', color: appcolor.verywhite, fontsize: 15.sp,)),
-                     )
+                         child: HeaderP(text: 'Man', color: appcolor.verywhite, fontsize: 15.sp,)),
+                    )
                       ],
                     ),
                     )
@@ -121,9 +177,9 @@ class HomeP extends StatelessWidget {
                   blurRadius: 5.0,
                   spreadRadius: 1
               )],
-                      image: DecorationImage(image: NetworkImage(Image_man),
+                    image: DecorationImage(image: NetworkImage(Image_man),
                      
-                      fit: BoxFit.cover
+                    fit: BoxFit.cover
                       ),
                     ),
                     height: 35.h, width: 105.w,
@@ -188,18 +244,31 @@ class HomeP extends StatelessWidget {
             SizedBox(height:20.h),
              HeaderP(color: appcolor.greyblack, text: 'Products', fontsize: 17.sp),
              Divider(color: Colors.black45,height: 3,),
-             SizedBox(height:20.h),
-                   ProductDisp(),
-                ],
-              ),
-            ),
+             SizedBox(height:20.h), 
+            ]),
+          )),
+          ) ,
+          drawer: drawer(context),
+        backgroundColor: Colors.white70.withOpacity(0.975),
+          body: internetConn?
+          ProductDispp():Center(
+            child: Container(
+                      
+                      height: 50.h,width: 250.w,
+                      color: appcolor.tint_grey.withOpacity(0.7),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: HeaderP(color: appcolor.verywhite, text: interMessage, fontsize: 12.sp),
+                      ),
+                    ),
           )
 
       ),
     );
   }
-  
+
   drawer(BuildContext context) {
+
     final appcolor=Appcolor();
     return Drawer(
       child: ListView(
@@ -221,9 +290,9 @@ class HomeP extends StatelessWidget {
                   ),
                 ),
                
-                HeaderP(color: appcolor.tint_grey, text: 'magic.william@gmail.com', fontsize: 12.sp),
+                HeaderP(color: appcolor.tint_grey, text: profiledata.email.toString(), fontsize: 12.sp),
                 SizedBox(height: 5.h,),
-                HeaderP(color: appcolor.tint_grey, text: '0816682657', fontsize: 12.sp),
+                HeaderP(color: appcolor.tint_grey, text: profiledata.mobile.toString(), fontsize: 12.sp),
               ],
             ),
           ),
@@ -294,4 +363,53 @@ class HomeP extends StatelessWidget {
       ),
     );
   }
+
+ProductDispp(){
+return  Obx(()=>Stack(
+  children: [
+        GridView.builder(
+    
+                  controller: _scrollCtrl,
+    
+                 scrollDirection: Axis.vertical,
+    
+                   shrinkWrap: true,
+    
+                        itemCount: pControl.product.length,
+    
+                        physics:const  ScrollPhysics(),
+    
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
+    
+                        crossAxisSpacing: 10,
+    
+                          mainAxisSpacing: 10,
+    
+                         childAspectRatio: 3/2,
+    
+                          mainAxisExtent: 245,
+    
+                        ), 
+    
+                        itemBuilder: (BuildContext context, int index) {
+    
+                          //return ListTile(title: Text("milk"),);
+    
+                          return  ProductData( pDetails: Datum.fromMap(pControl.product[index]),);
+    
+                        },
+    
+                      ),
+                      if(pControl.isloading.value)...[
+                        Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          height: 40.h,
+                          child: CircularProgressIndicator(),
+                        )
+                        )
+  ]
+  ],
+));
+}
 }

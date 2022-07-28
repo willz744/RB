@@ -136,7 +136,7 @@ void initState() {
 
                        Padding(
                          padding:  EdgeInsets.only(top: 550.h,left: 30.w),
-                        child: const Textbutton(text: 'Buy', pageR: 'pay')),
+                        child:  Textbutton(text: 'Buy', pageR: 'pay')),
 
 
                    ],
